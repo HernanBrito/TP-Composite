@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PorcionCompuesta extends PorcionDeTierra {
+	
     private List<PorcionDeTierra> subPorciones;
-
+    
     public PorcionCompuesta() {
         this.subPorciones = new ArrayList<>();
     }
@@ -13,6 +14,7 @@ public class PorcionCompuesta extends PorcionDeTierra {
     public void addCultivo(PorcionDeTierra p) {
         if (subPorciones.size() < 4) {
             subPorciones.add(p);
+            
         } else {
             throw new IllegalStateException("Máximo 4 sub-porciones.");
         }
@@ -25,8 +27,7 @@ public class PorcionCompuesta extends PorcionDeTierra {
         for (PorcionDeTierra sub : subPorciones) {
             total += sub.getGananciaAnual();
         }
-        
-        return total / 4.0;
+        return total / 4;
     }
     
 

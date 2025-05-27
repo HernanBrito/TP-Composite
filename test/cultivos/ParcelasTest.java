@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 class ParcelasTest {
 
 	PorcionCompuesta porcionInterna;
+	PorcionCompuesta porcionInterna2;
 	Soja soja;
 	Trigo trigo;
 	
@@ -15,21 +16,37 @@ class ParcelasTest {
     public void setup() {
         // Crear la porción interna con [Soja, Soja, Trigo, Trigo]
 		porcionInterna = new PorcionCompuesta();
+		porcionInterna2 = new PorcionCompuesta();
 		soja = new Soja(); // 500
 		trigo = new Trigo(); // 300
-        porcionInterna.addCultivo(soja);  // $250
-        porcionInterna.addCultivo(soja);  // $250
+		porcionInterna2.addCultivo(soja); // $125
+		porcionInterna2.addCultivo(soja); // $125
+		porcionInterna2.addCultivo(trigo); // $75
+		porcionInterna2.addCultivo(trigo); // $75
+		//Porcion interna2 400 en total
+        porcionInterna.addCultivo(soja);  // $125
+        porcionInterna.addCultivo(soja);  // $125
         porcionInterna.addCultivo(trigo); // $75
-        //porcionInterna.addCultivo(trigo); // $75
-        // 125 + 125 + 75 + 75 = $400
+        porcionInterna.addCultivo(porcionInterna2); // $50
 
     }
 	
 	@Test
 	public void testPorcionCompuestaTotalSojaTrigoYTotal() {
-		assertEquals(500 , soja.getGananciaAnual() , "Ganancia anual de soja incorrecta");
-		assertEquals(300 , trigo.getGananciaAnual() , "Ganancia anual de trigo incorrecta");
-		assertEquals(325d , porcionInterna.getGananciaAnual() , "Ganancia anual incorrecta");
+		assertEquals(500d , soja.getGananciaAnual() , "Ganancia anual de soja incorrecta");
+		assertEquals(300d , trigo.getGananciaAnual() , "Ganancia anual de trigo incorrecta");
+		assertEquals(400d , porcionInterna2.getGananciaAnual() , "Ganancia anual incorrecta");
+		assertEquals(425d , porcionInterna.getGananciaAnual() , "Ganancia anual incorrecta");
+	}
+	
+	@Test
+	public void testNoSePuedeAgregarMasDe4Subporciones() {
+
+	    Exception excepcion = assertThrows(IllegalStateException.class, () -> {
+	    	porcionInterna.addCultivo(new Soja());
+	    });
+
+	    assertEquals("Máximo 4 sub-porciones.", excepcion.getMessage());
 	}
 	
 
