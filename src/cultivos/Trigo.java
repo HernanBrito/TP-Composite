@@ -1,14 +1,9 @@
 package cultivos;
 
-public class Trigo implements IParcela {
-
-	public double getGananciaAnualTrigo() {
+public class Trigo extends PorcionDeTierra {
+	@Override
+	public double getGananciaAnual() {
 		return 300d;
 	}
-	
-	public double getGananciaAnualSoja() {
-		return 0d;
-	}
-	
 	
 }
